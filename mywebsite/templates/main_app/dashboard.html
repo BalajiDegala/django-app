@@ -1,0 +1,62 @@
+<!-- templates/main_app/dashboard.html -->
+{% extends 'base.html' %}
+
+{% block title %}Analytics Dashboard{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <h1 class="mb-4">Analytics Dashboard</h1>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card mb-4">
+            <div class="card-header bg-info text-white">
+                <h5 class="mb-0">Product Views</h5>
+            </div>
+            <div class="card-body">
+                <div class="display-4 text-center" id="page-views">--</div>
+                <p class="text-muted text-center">Total product views</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-6">
+        <div class="card mb-4">
+            <div class="card-header bg-success text-white">
+                <h5 class="mb-0">Product Statistics</h5>
+            </div>
+            <div class="card-body">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        Total Products
+                        <span class="badge bg-primary rounded-pill">{{ products.count }}</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        In Stock
+                        <span class="badge bg-success rounded-pill">{{ in_stock }}</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        Out of Stock
+                        <span class="badge bg-danger rounded-pill">{{ out_of_stock }}</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Fetch data from MongoDB through our API
+    fetch('/api/stats/')
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('page-views').textContent = data.page_views;
+        })
+        .catch(error => console.error('Error fetching stats:', error));
+});
+</script>
+{% endblock %}

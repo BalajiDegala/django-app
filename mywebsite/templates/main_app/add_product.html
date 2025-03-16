@@ -1,0 +1,27 @@
+<!-- templates/main_app/add_product.html -->
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+
+{% block title %}Add Product{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-8 offset-md-2">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h2 class="mb-0">Add New Product</h2>
+            </div>
+            <div class="card-body">
+                <form method="post">
+                    {% csrf_token %}
+                    {% bootstrap_form form %}
+                    <div class="mt-4">
+                        <button type="submit" class="btn btn-primary">Add Product</button>
+                        <a href="{% url 'home' %}" class="btn btn-secondary">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
